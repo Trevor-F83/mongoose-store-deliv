@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Edit Masterpieces</h1>
+    <form action="/masterpieces/<%=masterpiece._id%>?_method=PUT" method="POST">
+        Band: <input type="text" name="band" value="<%=masterpiece.band%>" /><br />
+        Title: <input type="text" name="title" value="<%=masterpiece.title%>" /><br />
+        Year: <input type="text" name="year" value="<%=masterpiece.year%>" /><br />
+        Description: <input type="text" name="description" value="<%=masterpiece.descrition%>" /><br />
+        <!-- Binged: <input type="checkbox" name="binged" <% if(masterpiece.binged
+        ===true) { %> checked <% } %> /> -->
+        <br />
+        <input type="submit" value="Submit Edit" />
+    </form>
+</body>
+</html>

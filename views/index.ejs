@@ -9,21 +9,31 @@
 </head>
 
 <body>
-   
+
     <h1>Mike Patton's Masterpieces</h1>
-<div>
-    <% masterpieces.forEach(masterpiece => { %>
+    <ul>
+        <% masterpieces.forEach(masterpiece=> { %>
             <li>
-        <a href="/masterpieces/<%=masterpiece._id; %>"><img src="<%=masterpiece.img; %>">
-            <%=masterpiece.title; %>
-        </a>
+                <a href="/masterpieces/<%=masterpiece._id; %>"><br />
+                    <%=masterpiece.band; %><br />
+                        <%=masterpiece.title; %><br />
+                            <%=masterpiece.year; %><br />
+                                <%=masterpiece.description; %><br />
+                                    <%=img src="<%=masterpiece.img; %>">
+                </a>
+                <form action="/masterpieces/<%= masterpiece._id %>?_method=DELETE" method="POST"
+                    style="display:inline; margin-left: 12px;">
+                    <input type="submit" value="DELETE">
+                </form>
+                <a href="/masterpieces/<%=masterpiece._id %>/edit">Edit</a>
             </li>
 
-        <% }) %>
-    </div>
-            <nav>
-                <a href="/masterpieces/new">Add New Masterpiece</a>
-            </nav>
+            <% }) %>
+    </ul>
+    <nav>
+        <br />
+        <a href="/masterpieces/new">Add New Masterpiece</a>
+    </nav>
 </body>
 
 </html>

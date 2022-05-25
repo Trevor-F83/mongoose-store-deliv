@@ -8,6 +8,7 @@ require('dotenv').config()
 const mongoose = require('mongoose')
 const Masterpiece = require('./models/masterpiece.js')
 const masterpieceSeed = require('./models/masterpieceSeed.js')
+const methodOverride = require('method-override')
 
 //========================
 //  DATABASE CONNECTIONS
@@ -32,6 +33,7 @@ db.on('dissconnected', () => console.log('mongo dissconnected'))
 //==========================
 
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 
 //========================
@@ -68,29 +70,27 @@ app.get('/masterpieces/new', (req, res) => {
 })
 
 //========================
-//         POST
+//         DELETE
 //========================
 
-app.post('/masterpieces', (req, res) => {
-    if (req.body.binged === 'on') {
-        req.body.binged = true;
-    } else {
-        req.body.binged = false;
-    }
-    Masterpiece.create(req.body, (error, createdMasterpiece) => {
+app.delete('/masterpieces/:id', (req, res) => {
+    Masterpiece.findByIdAndRemove(req.params.id, (err, data) => {
         res.redirect('/masterpieces')
     })
 })
 
 //========================
-//         SHOW
+//        CREATE
 //========================
 
-app.get('/masterpieces/:index', (req, res) => {
-    Masterpiece.findById(req.params.index, (err, foundMasterpiece) => {
-        res.render('show.ejs', {
-            masterpiece: foundMasterpiece,
-        })
+app.post('/masterpieces', (req, res) => {
+    // if (req.body.binged === 'on') {
+    //     req.body.binged = true;
+    // } else {
+    //     req.body.binged = false;
+    // }
+    Masterpiece.create(req.body, (error, createdMasterpiece) => {
+        res.redirect('/masterpieces')
     })
 })
 
@@ -98,14 +98,25 @@ app.get('/masterpieces/:index', (req, res) => {
 //         EDIT
 //========================
 
-
+app.get('/masterpieces/:id/edit', (req, res) => {
+    Masterpiece.findById(req.params.id, (error, foundMasterpiece) => {
+        res.render('/edit.ejs', {
+            masterpiece: foundMasterpiece,
+        })
+    })
+})
 
 //========================
-//        DELETE
+//         SHOW
 //========================
 
-
-
+app.get('/masterpieces/:id', (req, res) => {
+    Masterpiece.findById(req.params.id, (err, foundMasterpiece) => {
+        res.render('show.ejs', {
+            masterpiece: foundMasterpiece,
+        })
+    })
+})
 //========================
 //
 //========================
