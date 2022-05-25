@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masterpiece</title>
+</head>
+
+<body>
+   
+    <h1>Mike Patton's Masterpieces</h1>
+<div>
+    <% masterpieces.forEach(masterpiece => { %>
+            <li>
+        <a href="/masterpieces/<%=masterpiece._id; %>"><img src="<%=masterpiece.img; %>">
+            <%=masterpiece.title; %>
+        </a>
+            </li>
+
+        <% }) %>
+    </div>
+            <nav>
+                <a href="/masterpieces/new">Add New Masterpiece</a>
+            </nav>
+</body>
+
+</html>
