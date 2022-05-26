@@ -14,11 +14,11 @@
     <ul>
         <% masterpieces.forEach(masterpiece=> { %>
             <li>
-                <a href="/masterpieces/<%=masterpiece.id %>">
-                    <p><%=masterpiece.band %></p>
-                        <p><%=masterpiece.title %></p>
-                            <p><%=masterpiece.year %></p>
-                                <p><%=masterpiece.description %></p>
+                <a href="/masterpieces/<%=masterpiece.id %>"><br />
+                    <p><%=masterpiece.band %></p><br />
+                        <p><%=masterpiece.title %></p><br />
+                            <p><%=masterpiece.year %></p><br />
+                                <p><%=masterpiece.description %></p><br />
                                     <img src="<%=masterpiece.img %>">
                 </a>
                 <form action="/masterpieces/<%= masterpiece.id %>?_method=DELETE" method="POST"
@@ -31,7 +31,7 @@
             <% }) %>
     </ul>
     <nav>
-        
+        <br />
         <a href="/masterpieces/new">Add New Masterpiece</a>
     </nav>
 </body>

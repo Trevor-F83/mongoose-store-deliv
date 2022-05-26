@@ -10,11 +10,11 @@ const masterpieceSeed = require('../models/masterpieceSeed.js')
 
 
 router.get('/seed', (req, res) => {
-    Masterpiece.deleteMany({}, (error, allMasterpieces) => {
+    Masterpiece.deleteMany({}, (error, allMasterpieces) => {})
         Masterpiece.create(masterpieceSeed, (error, data) => {
             res.redirect('/masterpieces')
         })
-    })
+    
 })
 //========================
 //        INDEX
@@ -96,3 +96,5 @@ Masterpiece.findById(req.params.id, (error, foundMasterpiece) => {
     })
 })
 })
+
+module.exports = router
