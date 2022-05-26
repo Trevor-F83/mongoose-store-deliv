@@ -2,13 +2,14 @@
 //      DEPENDENCIES
 //========================
 
-const express = require("express")
+const express = require('express')
 const app = express()
 require('dotenv').config()
 const mongoose = require('mongoose')
-const Masterpiece = require('./models/masterpiece.js')
-const masterpieceSeed = require('./models/masterpieceSeed.js')
+// const Masterpiece = require('./models/masterpiece.js')
+
 const methodOverride = require('method-override')
+const masterpiecesController = require('./controllers/masterpieces')
 
 //========================
 //  DATABASE CONNECTIONS
@@ -35,88 +36,13 @@ db.on('dissconnected', () => console.log('mongo dissconnected'))
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
 
-
+app.use('/masterpieces', masterpiecesController)
 //========================
 //          SEED
 //========================
 
 
-app.get('/masterpieces/seed', (req, res) => {
-        Masterpiece.deleteMany({}, (error, allMasterpieces) => {
-            Masterpiece.create(masterpieceSeed, (error, data) => {
-                res.redirect('/masterpieces')
-            })
-        })
-    })
-//========================
-//        INDEX
-//========================
 
-app.get('/masterpieces', (req, res) => {
-    // res.send('index')
-    Masterpiece.find({}, (error, allMasterpieces) => {
-        res.render('index.ejs', {
-            masterpieces: allMasterpieces,
-        });
-    });
-});
-
-//========================
-//         NEW
-//========================
-
-app.get('/masterpieces/new', (req, res) => {
-    res.render('new.ejs')
-})
-
-//========================
-//         DELETE
-//========================
-
-app.delete('/masterpieces/:id', (req, res) => {
-    Masterpiece.findByIdAndRemove(req.params.id, (err, data) => {
-        res.redirect('/masterpieces')
-    })
-})
-
-//========================
-//        CREATE
-//========================
-
-app.post('/masterpieces', (req, res) => {
-    // if (req.body.binged === 'on') {
-    //     req.body.binged = true;
-    // } else {
-    //     req.body.binged = false;
-    // }
-    Masterpiece.create(req.body, (error, createdMasterpiece) => {
-        res.redirect('/masterpieces')
-    })
-})
-
-//========================
-//         EDIT
-//========================
-
-app.get('/masterpieces/:id/edit', (req, res) => {
-    Masterpiece.findById(req.params.id, (error, foundMasterpiece) => {
-        res.render('/edit.ejs', {
-            masterpiece: foundMasterpiece,
-        })
-    })
-})
-
-//========================
-//         SHOW
-//========================
-
-app.get('/masterpieces/:id', (req, res) => {
-    Masterpiece.findById(req.params.id, (err, foundMasterpiece) => {
-        res.render('show.ejs', {
-            masterpiece: foundMasterpiece,
-        })
-    })
-})
 //========================
 //
 //========================
@@ -130,5 +56,5 @@ app.get('/masterpieces/:id', (req, res) => {
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
-    console.log('listening on: ${PORT}')
+    console.log(`listening on: ${PORT}`)
 })

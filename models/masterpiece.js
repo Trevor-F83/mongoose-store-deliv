@@ -5,8 +5,8 @@ const masterpieceSchema = new mongoose.Schema({
     title: { type: String, },
     year: {type: String, },
     description: { type: String, },
-    image: { type: String, },
-    // binged: Boolean,
+    img: { type: String, },
+  
 })
 
 const Masterpiece = mongoose.model('Masterpiece', masterpieceSchema)
